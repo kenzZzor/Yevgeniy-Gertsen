@@ -1,0 +1,69 @@
+// Произведите корректную (правильную) по вашему мнению реализацию с применением принципа Interface Segregation Principle, ISP:
+
+public interface IWorkable
+{
+    void Work();
+}
+
+public interface IEatable
+{
+    void Eat();
+}
+
+public interface ISleepable
+{
+    void Sleep();
+}
+
+
+
+public class HumanWorker : IWorkable, IEatable, ISleepable
+{
+    public void Work()
+    {
+        // Логика работы
+    }
+
+    public void Eat()
+    {
+        // Логика питания
+    }
+
+    public void Sleep()
+    {
+        // Логика сна
+    }
+}
+
+
+
+public class RobotWorker : IWorkable
+{
+    public void Work()
+    {
+        // Логика работы
+    }
+}
+
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        IWorkable human = new HumanWorker();
+        human.Work();
+        
+        IEatable humanEater = (IEatable)human;
+        humanEater.Eat();
+        
+        ISleepable humanSleeper = (ISleepable)human;
+        humanSleeper.Sleep();
+
+        IWorkable robot = new RobotWorker();
+        robot.Work();
+        
+        // Robot не может есть или спать, так что эти методы не будут вызываться.
+    }
+}
