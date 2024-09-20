@@ -1,0 +1,67 @@
+// 2 - Произведите корректную (правильную) по вашему мнению реализацию с применением принципа Open-Closed Principle, OCP:
+public abstract class Employee
+{
+    public string Name { get; set; }
+    public double BaseSalary { get; set; }
+
+    public Employee(string name, double baseSalary)
+    {
+        Name = name;
+        BaseSalary = baseSalary;
+    }
+
+    // Абстрактный метод для расчета зарплаты
+    public abstract double CalculateSalary();
+}
+
+public class PermanentEmployee : Employee
+{
+    public PermanentEmployee(string name, double baseSalary) 
+        : base(name, baseSalary)
+    {
+    }
+
+    public override double CalculateSalary()
+    {
+        return BaseSalary * 1.2; // Permanent employee gets 20% bonus
+    }
+}
+
+public class ContractEmployee : Employee
+{
+    public ContractEmployee(string name, double baseSalary) 
+        : base(name, baseSalary)
+    {
+    }
+
+    public override double CalculateSalary()
+    {
+        return BaseSalary * 1.1; // Contract employee gets 10% bonus
+    }
+}
+
+public class InternEmployee : Employee
+{
+    public InternEmployee(string name, double baseSalary) 
+        : base(name, baseSalary)
+    {
+    }
+
+    public override double CalculateSalary()
+    {
+        return BaseSalary * 0.8; // Intern gets 80% of the base salary
+    }
+}
+
+public class FreelancerEmployee : Employee
+{
+    public FreelancerEmployee(string name, double baseSalary) 
+        : base(name, baseSalary)
+    {
+    }
+
+    public override double CalculateSalary()
+    {
+        return BaseSalary * 1.15; // Freelancer gets 15% bonus
+    }
+}
