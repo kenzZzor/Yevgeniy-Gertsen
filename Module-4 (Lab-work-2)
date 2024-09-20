@@ -1,0 +1,80 @@
+// Произведите корректную (правильную) по вашему мнению реализацию с применением принципа Open-Closed Principle, OCP
+
+public interface IDiscountStrategy
+{
+    double CalculateDiscount(double amount);
+}
+
+
+
+public class RegularDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount; // Нет скидки
+    }
+}
+
+public class SilverDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.9; // 10% скидка
+    }
+}
+
+public class GoldDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.8; // 20% скидка
+    }
+}
+
+public class PlatinumDiscount : IDiscountStrategy
+{
+    public double CalculateDiscount(double amount)
+    {
+        return amount * 0.7; // 30% скидка
+    }
+}
+
+
+
+public class DiscountCalculator
+{
+    private readonly IDiscountStrategy _discountStrategy;
+
+    public DiscountCalculator(IDiscountStrategy discountStrategy)
+    {
+        _discountStrategy = discountStrategy;
+    }
+
+    public double CalculateDiscount(double amount)
+    {
+        return _discountStrategy.CalculateDiscount(amount);
+    }
+}
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        double amount = 1000;
+
+        // Пример использования для разных типов клиентов
+        DiscountCalculator regularCalculator = new DiscountCalculator(new RegularDiscount());
+        Console.WriteLine("Regular customer: " + regularCalculator.CalculateDiscount(amount));
+
+        DiscountCalculator silverCalculator = new DiscountCalculator(new SilverDiscount());
+        Console.WriteLine("Silver customer: " + silverCalculator.CalculateDiscount(amount));
+
+        DiscountCalculator goldCalculator = new DiscountCalculator(new GoldDiscount());
+        Console.WriteLine("Gold customer: " + goldCalculator.CalculateDiscount(amount));
+
+        DiscountCalculator platinumCalculator = new DiscountCalculator(new PlatinumDiscount());
+        Console.WriteLine("Platinum customer: " + platinumCalculator.CalculateDiscount(amount));
+    }
+}
