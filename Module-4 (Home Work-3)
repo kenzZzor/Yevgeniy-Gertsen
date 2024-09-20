@@ -1,0 +1,62 @@
+// Произведите корректную (правильную) по вашему мнению реализацию с применением принципа Interface Segregation Principle, ISP
+
+// Определение отдельных интерфейсов
+public interface IPrint
+{
+    void Print(string content);
+}
+
+public interface IScan
+{
+    void Scan(string content);
+}
+
+public interface IFax
+{
+    void Fax(string content);
+}
+
+
+// Реализация принтера "всё в одном" (AllInOnePrinter), который поддерживает все функции
+public class AllInOnePrinter : IPrint, IScan, IFax
+{
+    public void Print(string content)
+    {
+        Console.WriteLine("Printing: " + content);
+    }
+
+    public void Scan(string content)
+    {
+        Console.WriteLine("Scanning: " + content);
+    }
+
+    public void Fax(string content)
+    {
+        Console.WriteLine("Faxing: " + content);
+    }
+}
+
+
+// Реализация базового принтера (BasicPrinter), который поддерживает только печать
+public class BasicPrinter : IPrint
+{
+    public void Print(string content)
+    {
+        Console.WriteLine("Printing: " + content);
+    }
+}
+
+
+// Реализация принтера, который поддерживает печать и сканирование, но не отправку факсов
+public class PrintScanPrinter : IPrint, IScan
+{
+    public void Print(string content)
+    {
+        Console.WriteLine("Printing: " + content);
+    }
+
+    public void Scan(string content)
+    {
+        Console.WriteLine("Scanning: " + content);
+    }
+}
