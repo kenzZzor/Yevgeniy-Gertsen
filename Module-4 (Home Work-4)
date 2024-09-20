@@ -1,0 +1,52 @@
+// Произведите корректную (правильную) по вашему мнению реализацию с применением принципа Dependency-Inversion Principle, DIP
+
+public interface INotificationSender
+{
+    void Send(string message);
+}
+
+
+public class EmailSender : INotificationSender
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("Email sent: " + message);
+    }
+}
+
+
+public class SmsSender : INotificationSender
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("SMS sent: " + message);
+    }
+}
+
+
+public class MessengerSender : INotificationSender
+{
+    public void Send(string message)
+    {
+        Console.WriteLine("Message sent via Messenger: " + message);
+    }
+}
+
+
+public class NotificationService
+{
+    private readonly List<INotificationSender> _senders;
+
+    public NotificationService(List<INotificationSender> senders)
+    {
+        _senders = senders;
+    }
+
+    public void SendNotification(string message)
+    {
+        foreach (var sender in _senders)
+        {
+            sender.Send(message);
+        }
+    }
+}
